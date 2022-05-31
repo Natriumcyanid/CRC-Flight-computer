@@ -9,6 +9,7 @@
 */
 
 #include <Arduino_LSM6DS3.h>
+#define PIN_IGNITION 10
 float accX, accY, accZ;
 float gyroX, gyroY, gyroZ;
 float accAngleX, accAngleY, gyroAngleX, gyroAngleY, gyroAngleZ;
@@ -19,6 +20,7 @@ int i = 0;
 
 void setup() {
   pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_IGNITION, OUTPUT);
   Serial.begin(19200);
   while (!Serial);
 
@@ -74,19 +76,9 @@ void loop() {
 
 // Triggered if rocket tipover is detected
 void recovery_system() {
-  for (i = 0; i < 10; i++) {
-    digitalWrite(PIN_LED, HIGH);
-    delay(100);
-    digitalWrite(PIN_LED, LOW);
-    delay(100);
-  }
-  
-  while (1) {
-    digitalWrite(PIN_LED, HIGH);
-    delay(500);
-    digitalWrite(PIN_LED, LOW);
-    delay(500);
-    }
+  digitalWrite(PIN_LED, HIGH);
+  delay(2000);
+  digitalWrite(PIN_LED, LOW);
 }
 
 void calculate_IMU_error() {
